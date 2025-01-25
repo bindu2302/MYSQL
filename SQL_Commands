@@ -92,3 +92,39 @@ where location = 'city H' and employee_count = 450;
 delete from office;
 
 
+
+-- TCL ----
+SET SQL_SAFE_UPDATES = 0; 
+
+SET autocommit = 0;
+
+
+create table patients_details(patient_id INT auto_increment primary key,
+patient_name varchar(255) not null,age int,statusp varchar(50));
+
+insert into patients_details(patient_name,age,statusp)values
+('shruthi',35,'in'),('shanthi',42,'out'),('nikitha',28,'out');
+
+COMMIT;
+
+insert into patients_details(patient_name,age,statusp)values
+('sahana',35,'in'),('sindhu',42,'out');
+
+savepoint firstentry;
+
+insert into patients_details(patient_name,age,statusp)values
+('svithri',35,'in'),('sadha',42,'recovery');
+
+select * from patients_details;
+
+rollback to firstentry;
+rollback;
+
+savepoint initial_savepoint;
+
+update patients_details set statusp = 'recovered' 
+where patient_name = 'nikitha';
+
+rollback to initial_savepoint;
+
+
