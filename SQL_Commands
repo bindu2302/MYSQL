@@ -1,0 +1,94 @@
+-- Commands ----
+-- 1. DDL----
+create table library(book_id int primary key auto_increment,
+ title varchar(255) NOT NULL, 
+author varchar(255) not null,
+publication_year int,
+genre varchar(50));
+
+insert into library (title,author,publication_year,genre)values
+('introduction to sql','ravi',2020,'technical'),
+('python','priya',2021,'Technical'),
+('data structure and algorithm','rakesh',2022,'technical'),
+('machine learning','kalyan',2018,'technical'),
+('history','meera',2017,'history');
+
+select * from library;
+
+-- add a price col -----
+ALTER table library add column price decimal(10,2);
+
+-- rename a col genre with book_genre---
+ALTER table library rename column genre to book_genre;
+
+-- drop a col price from library table ---
+alter table library drop column price;
+
+-- alter a datatype of publication year col from int into varchar(4)--------
+Alter table library modify column publication_year varchar(4);
+desc library;
+
+-- add unique constraint to the 'title' and 'author' column---
+alter table library add constraint Unique_constraint unique (author,title);
+
+-- remove constraint unique for col title using alter---
+alter table library modify column title varchar(255);
+
+-- rename library to book_library --
+Rename table library to book_library; 
+
+rename table book_library to library;
+
+-- remove col genre(book_genre) from library---
+alter table library drop column book_genre;
+
+-- to drop passenger_details table --
+Drop table passenger_details;
+
+-- Remove all the data from library without deleting tables structure ---
+Truncate table library;
+
+
+-- DML Commands -----
+
+create table office(office_id int primary key auto_increment,
+ office_name varchar(50),
+location varchar(255),employee_count int);
+
+insert into office(office_name,location,employee_count)values
+('headquarters','city A',500),
+('branch office 1','city B',150),
+('Branch office 2','city C',200),
+('Regional office','city D',300),
+('Central ofiice','city E',250),
+('Divisional office','city F',180),
+('Satellite office','city G',300),
+('Main Office','city H',400);
+
+select * from office;
+
+-- change the location of 'branch office 1' to 'city E'
+SET SQL_SAFE_UPDATES = 0;  -- use this 
+
+update office set location = 'city E' where
+office_name = 'branch office 1';
+
+-- SET SQL_SAFE_UPDATES = 1; -- Re-enable safe update mode
+
+-- update employee_count for 'regional office' or 'main office' to 45
+update office set employee_count = 450
+where office_name = 'Regional office' or 
+office_name = 'Main office';
+
+-- delete the record 'branch office 2' from office table
+delete from office where office_name = 'Branch office 2';
+ 
+-- delete the record from office table where employee_count is 450 and location is city H-----alter
+ 
+delete from office 
+where location = 'city H' and employee_count = 450;
+
+-- delete all records from office table temporary--- truncate will delete data permanently
+delete from office;
+
+
