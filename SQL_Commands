@@ -128,3 +128,28 @@ where patient_name = 'nikitha';
 rollback to initial_savepoint;
 
 
+
+-- DCL -----
+create user user_1 identified by 'Bindu@520';
+
+GRANT ALL privileges on *.* to user_1;
+
+REVOKE ALL privileges ON *.* from user_1;
+
+
+
+-- In New Database and table
+create database developer;
+
+Use developer;
+
+create table user1234(id int, name varchar(30));
+
+select * from user1234;
+
+GRANT All privileges on developer.* to user_1;
+
+REVOKE All privileges on developer.* from user_1;
+
+
+-- https://prnt.sc/ZqH9siEegVPs
