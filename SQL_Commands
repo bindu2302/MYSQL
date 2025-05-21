@@ -136,6 +136,23 @@ GRANT ALL privileges on *.* to user_1;
 
 REVOKE ALL privileges ON *.* from user_1;
 
+-- DCL: grant,revoke
+create user 'KOD123' IDENTIFIED BY 'Kod!123';
+
+grant all privileges ON inventory_details.dep to 'KOD123';
+
+-- REVOKE ALL privileges ON inventory_details.dep FROM 'KOD123';
+
+create user 'Bindu'@'localhost' identified by 'bindu@520';
+
+grant select on inventory_details.dep To 'Bindu'@'localhost';
+grant insert on inventory_details.dep To 'Bindu'@'localhost';
+revoke insert on inventory_details.dep from 'Bindu'@'localhost';
+
+select user,host from mysql.user;
+
+drop user 'Bindu'@'localhost';
+
 
 
 -- In New Database and table
