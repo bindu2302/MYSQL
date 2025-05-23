@@ -81,6 +81,51 @@ select emp_name,reverse(emp_name),length(emp_name) from employee;
 
 -- Number functions
 
+-- mod()
+select mod(10,2) as remainder;
+select mod(10,9) as remainder;
 
+-- abs(absolute)
+select abs(-20); -- 20
+select abs(2/10-5000); -- 4999.8000
 
+-- round(number,digits after decimal(+ve/-ve))
+select round(99.99,0); -- 100
+select round(99.99,1); -- 100.0
+select round(689.9438,3); -- 689.944
+select round(99.9999,2); -- 100.00
+select round(699.999,2); -- 700.00
+select round(968.328,-2); -- 1000
+select round(9968.683,-3); -- 10000
+select round(9996.823,-4); -- 10000
+select round(159.93490,-2); -- 200
+select round(159.43590,-1); -- 160
+select round(49.93490,-2); -- 0
+select round(4813.689,-4); -- 0
+select round(340.78900,-2); -- 300
 
+-- pow()/power()
+select power(2,2); -- 4
+select pow(2,3); -- 8
+
+-- sqrt()
+select sqrt(16); -- 4
+select sqrt(49); -- 7
+select sqrt(144); -- 12
+
+-- ceil()/ceiling()
+select ceil(45.2); -- 46
+select ceil(99.01); -- 100
+select ceil(99.001); -- 100
+select ceil(89.1); -- 90
+select ceil(-966789.9876); -- 966789
+select ceil(-29.90); -- 29
+select ceil(-99.99); -- 99
+
+-- floor()
+select floor(45.2); -- 45
+select floor(99.99); -- 99
+select floor(6879.578); -- 6879
+select floor(-8.99); -- -9
+select floor(-88.99); -- -89
+select floor(-1.99); -- -2
