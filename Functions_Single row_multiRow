@@ -129,3 +129,61 @@ select floor(6879.578); -- 6879
 select floor(-8.99); -- -9
 select floor(-88.99); -- -89
 select floor(-1.99); -- -2
+
+
+-- Date and Time functions
+
+-- date() and time()
+select date('2025-05-06 11:11:02') as date_part;
+select time('2025-05-06 11:11:02') as time_part;
+
+-- Returns current date and time
+select sysdate(); -- execute the function when fucntion is started
+select localtimestamp(); -- alt to now()
+select localtime(); -- alt to now()
+select now(); -- current date & time when query execution started
+
+-- Returns current date and current time
+select current_date(), curdate();
+select current_time(), curtime();
+
+-- Timestampdiff(unit,date1(past),date2(future)) : date2 - date1
+select timestampdiff(day,'2025-05-24','2026-05-24'); -- 365
+select timestampdiff(day,'2025-06-24','2020-06-20'); -- -1830
+select timestampdiff(week,'2025-05-24','2026-05-24'); -- 52
+select timestampdiff(year,'2025-05-24','2026-05-24'); -- 1
+select timestampdiff(hour,'2025-05-24','2026-05-24'); -- 8760
+select timestampdiff(minute,'2025-05-24','2026-05-24'); -- 525600
+select timestampdiff(second,'2025-05-24','2026-05-24'); -- 31536000
+
+
+-- datediff(date1(future),date2(past)): date1 - date2
+select datediff('2025-05-24','2026-05-24'); -- -365
+select datediff('2026-05-24','2025-05-24'); -- 365
+
+-- date_add(date,interval amount unit)
+select date_add('2025-05-24', interval 3 day) as after_3_days; -- 2025-05-27
+select date_add('2025-05-24', interval 4 week) as after_4_weeks; -- 2025-06-21
+select date_add('2025-05-24', interval 3 month) as after_3_months; -- 2025-08-24
+select date_add('2025-05-24', interval 3 year) as after_3_years; -- 2028-05-24
+select date_add('2025-05-24', interval 3 hour) as after_3_hour; -- 2025-05-24 03:00:00
+select date_add('2025-05-24', interval 3 minute) as after_3_minute; -- 2025-05-24 00:03:00
+select date_add('2025-05-24', interval 3 second) as after_3_seconds; -- 2025-05-24 00:00:03
+
+-- day,month,year
+select day('2025-05-24'); -- 24
+select month('2025-05-24'); -- 05
+select year('2025-05-24'); -- 2025
+select yearweek('2025-05-24'); -- 202520
+
+
+-- dayname() , monthname()
+select dayname('2025-05-24'); -- Saturday
+select monthname('2025-05-24'); -- May
+
+
+
+
+
+
+
