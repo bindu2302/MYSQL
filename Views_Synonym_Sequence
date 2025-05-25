@@ -48,3 +48,9 @@ start with 100
 increment by 1
 maxvalue 500
 nocycle;
+
+create table employee(emp_id int, emp_name varchar2(40));
+
+insert into employee values(ids.nextval,'Akash');
+
+select * from employee; -- 100  Akash
