@@ -29,3 +29,22 @@ where balance > 80000;
 
 -- drop view
 drop view Userid_balance;
+
+
+
+
+-- synonym: A synonym is an alias or alternative name for a database object (like a table, view, sequence, procedure, etc.).
+ 
+create synonym emp for Employee;
+
+selct * from emp;
+
+
+-- sequence:A sequence is a database object that generates unique numeric values, typically used for primary keys.
+
+
+create sequence ids
+start with 100
+increment by 1
+maxvalue 500
+nocycle;
