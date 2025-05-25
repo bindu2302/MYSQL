@@ -53,4 +53,11 @@ create table employee(emp_id int, emp_name varchar2(40));
 
 insert into employee values(ids.nextval,'Akash');
 
-select * from employee; -- 100  Akash
+insert into employee values(ids.currval+1,'Ayush');
+
+select ids.currval from employee; -- 101
+select * from employee; 
+
+-- 100  Akash
+-- 101  Ayush
+          
