@@ -1,0 +1,34 @@
+drop table customer;
+
+create table CUSTOMER(C_ID INT, C_NAME VARCHAR(20));
+
+-- Procedure/ Stored procedure: 
+
+delimiter $
+CREATE procedure INSERTVAL(IN ID INT, IN NAM VARCHAR(20))
+begin
+insert into customer(C_ID,C_NAME) values
+(ID,NAM);
+select 'ADDED';
+END $
+delimiter ;
+
+call INSERTVAL(100,'Akash');
+call INSERTVAL(101,'pooja');
+call INSERTVAL(102,'Neha');
+call INSERTVAL(103,'Ayush');
+
+select * from Customer;
+
+drop procedure INSERTVAL;
+
+delimiter $
+create procedure getname1(IN ID int, OUT customer_name varchar(20))
+begin
+select C_name into CUsTOMER_NAME from CUSTOMER
+where C_ID = ID;
+END $
+delimiter ;
+
+call getname1(100,@Cus_name);
+select @Cus_name;
