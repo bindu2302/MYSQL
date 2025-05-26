@@ -1,3 +1,5 @@
+Stored Procedure: is a group of sql statements compiled into a single unit, stored in the database, it can be executed by calling its name.
+
 drop table customer;
 
 create table CUSTOMER(C_ID INT, C_NAME VARCHAR(20));
