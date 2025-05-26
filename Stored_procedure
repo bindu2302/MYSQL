@@ -1,5 +1,11 @@
 Stored Procedure: is a group of sql statements compiled into a single unit, stored in the database, it can be executed by calling its name.
 
+Benefits:
+1. Reusablity: Define once, use multiple times
+2. Maintainability: Easier to Manage changes.
+3. Performance: Reduces network traffic between the application and database.
+4. Security: Restrict user access to data by giving access to stored procedures instead of underlying th tables.
+
 drop table customer;
 
 create table CUSTOMER(C_ID INT, C_NAME VARCHAR(20));
