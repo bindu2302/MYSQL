@@ -6,6 +6,21 @@ Benefits:
 3. Performance: Reduces network traffic between the application and database.
 4. Security: Restrict user access to data by giving access to stored procedures instead of underlying th tables.
 
+syntax:
+
+DELIMITER $$
+
+CREATE PROCEDURE procedure_name (
+    IN param1 datatype,
+    OUT param2 datatype
+)
+BEGIN
+    -- Procedure logic here
+END$$
+
+DELIMITER ;
+
+
 drop table customer;
 
 create table CUSTOMER(C_ID INT, C_NAME VARCHAR(20));
