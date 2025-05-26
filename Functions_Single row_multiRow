@@ -176,10 +176,63 @@ select month('2025-05-24'); -- 05
 select year('2025-05-24'); -- 2025
 select yearweek('2025-05-24'); -- 202520
 
-
 -- dayname() , monthname()
 select dayname('2025-05-24'); -- Saturday
 select monthname('2025-05-24'); -- May
+
+
+
+-- Control flow Functions
+-- 1. IF(): Returns one value if the condition is true, another if false
+-- syntax: if(condition,true_value,false_value)   ex: select if(100>50,'High','low');
+
+select if(10>5,'10 is greater','10 is not greater') as result; -- 10 is greater
+select if(10+7>30,10+10,5+5); -- 10
+select if(100+7>30,10+10,5+5); -- 20
+
+-- 2. IFNULL(): Returns the first argument if it's not NULL, otherwise returns the second. -- replace null
+-- syntax: IFNULL(exp1,exp2)   ex: select ifnull(null,'default'); -> 'default'
+
+select ifnull(10+30,50) as result; -- 40
+select ifnull(null,50) as result; -- 50
+
+-- 3. NULLIF(): Returns null if both arguments are equal, otherwisw returns the first. -- insert null 
+-- syntax: NULLIF(exp1,exp2)   ex: select bullif(100,100); -> null
+
+select nullif(10,10); -- null
+select nullif(10,100); -- 10
+
+-- 4. Evaluates conditions and returns the result for the first true condition. Similar to switch-case in other languages.
+-- syntax: 
+-- CASE
+--   WHEN condition1 then result1
+--   WHEN condition2 then result2
+--   ...
+--   ELSE default_result
+--   END
+     
+     
+select 
+	CASE 
+		WHEN 85 >= 90 THEN 'A'
+		WHEN 85 >= 80 THEN 'B'
+        ELSE 'C'
+	END AS Grade; -- B
+
+select 
+	CASE 
+		WHEN 99 >= 90 THEN 'A'
+		WHEN 98 >= 80 THEN 'B'
+        ELSE 'C'
+	END AS Grade; -- A
+
+
+-- 5. COALESCE(): Returns the first non-null value in a list.
+-- syntax: COALESCE(value1,value2,..., value_n);
+
+select coalesce(null,null, 40,60,70,null) as result; -- 40
+select coalesce('priya',40,60,70,null) as result; -- priya
+
 
 
 
