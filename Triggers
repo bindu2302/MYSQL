@@ -10,3 +10,11 @@ Benefits of Triggers in MySQL:
 4.Cascade Changes: Keep related tables in sync (e.g., auto-update a timestamp in a parent table when a child table is modified).
 5.Reduced Application Logic: Business rules stay in the database rather than being duplicated in multiple application layers.
 
+Syntax:
+CREATE TRIGGER trigger_name
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE}
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- trigger logic here
+END;
