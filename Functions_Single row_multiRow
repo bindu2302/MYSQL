@@ -1,7 +1,9 @@
 -- Functions in SQL: 
 -- 1. Single-row funcions: Single row functions are such functions  which work on single row and return one output per row.
 -- String Functions, Number Functions, Time & Date Functions and Control-flow Functions
--- 2. Multiple-row functions: Nultiple row functions are such functions which work on single or multiple rows and return one result for the complete set of rows.
+-- 2. Multiple-row functions: Nultiple row functions/ Agrregate functions are such functions which work on single or multiple rows and 
+-- return one result for the complete set of rows.
+-- COUNT(), SUM(), AVG(), MAX(), MIN()
 
 -- Practice queries using raw data  STRING FUNCTIONS
 
@@ -236,6 +238,28 @@ select
 
 select coalesce(null,null, 40,60,70,null) as result; -- 40
 select coalesce('priya',40,60,70,null) as result; -- priya
+
+
+-- MULTI ROW FUNCTIONS
+-- 1. COUNT(): This function counts the number of rows in a result set. It can be used to count all rows.
+select * from employee;
+select count(emp_Id) from employee; -- 5
+select count(*) from employee; -- 5
+
+-- 2. SUM(): This function calculates the sum of all values in a numeric column.
+select * from users;
+select sum(password) from users; -- 578
+
+-- 3. AVG(): This function calculates the average value of a numeric column. It adds up all values and divies by the no.of values.
+select avg(id) from users; -- 27.0000
+
+-- 4.MAX(): This function returns the maximum value from a set of values.
+select max(id) from users; -- 53
+
+-- 5. MIN(): This function returns the minimum value from a set of values.
+select min(id) from users; -- 1
+
+-- Tip: With aggregate columns, non aggregate column are not allowed in select
 
 
 
