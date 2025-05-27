@@ -11,6 +11,7 @@ Benefits of Triggers in MySQL:
 5.Reduced Application Logic: Business rules stay in the database rather than being duplicated in multiple application layers.
 
 Syntax:
+DELIMITER //
 CREATE TRIGGER trigger_name
 {BEFORE | AFTER} {INSERT | UPDATE | DELETE}
 ON table_name
@@ -18,3 +19,6 @@ FOR EACH ROW
 BEGIN
     -- trigger logic here
 END;
+//
+
+DELIMITER ;
