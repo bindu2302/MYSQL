@@ -22,3 +22,39 @@ END;
 //
 
 DELIMITER ;
+
+
+example:
+
+
+create table orderdetail(order_id int, product_id int, quantity int);
+insert into orderdetail values(101,1,20),(102,2,30),(103,3,25),(104,4,15);
+select * from orderdetail;
+
+
+create table product(product_id int, quantity int);
+insert into product values(1,100),(2,150),(3,183),(4,120),(5,80);
+select * from product;
+
+
+DELIMITER //
+
+CREATE TRIGGER UpdateProduct
+AFTER INSERT ON orderdetail
+FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET quantity = quantity - NEW.quantity
+    WHERE product_id = NEW.Product_id;
+END;
+//
+
+DELIMITER ;
+
+-- SET sql_safe_updates = 0;
+
+select * from orderdetail;
+
+insert into orderdetail values(105,5,10);
+
+select * from product;
