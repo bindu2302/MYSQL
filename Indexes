@@ -1,1 +1,29 @@
+-- indexes: An index in sql is a databse object,that provides fast and effient way to locate the rows in a table. A index is significantly improve the 
+-- query performance by allowing the database to quickly locate the rows matching specified conditions.
 
+-- Action	SQL Example:   Create Index	CREATE INDEX find_Id ON users(id);
+-- Use Index:              SELECT * FROM users WHERE id = 2; (auto)
+-- Check Usage:             Use EXPLAIN or EXPLAIN PLAN
+-- Drop Index: 	              Depends on DB: mySQL/Postgres: DROP INDEX find_Id; Oracle: DROP INDEX find_Id;  SQL Server: DROP INDEX find_Id ON users;
+
+-- TIP: However, indexes are used automatically by the database when you write queries that benefit from them—you don’t call them explicitly in your query.
+
+-- Benefits: 
+-- 1.Faster Query Performance
+-- 2. Improves Sorting and Searching
+-- 3. Supports Uniqueness
+-- 4. Speeds Up JOIN Operations
+-- 5. Helps with Aggregate Functions
+
+select *  from users where id=2; -- before index usage
+create index find_Id on users(id);
+SELECT * FROM users WHERE id = 2;  -- after index usage
+EXPLAIN SELECT * FROM users WHERE id = 2;
+drop index find_Id on users;
+
+
+select * from employee where emp_name = 'anitha';
+create INDEX Employee_NAME on employee(emp_name);
+select * from employee where emp_name = 'anitha';
+EXPLAIN select * from employee where emp_name = 'anitha';
+drop index Employee_Name on employee;
