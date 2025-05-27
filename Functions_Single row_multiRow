@@ -1,5 +1,9 @@
--- Practice queries using raw data  STRING FUNCTIONS
+-- Functions in SQL: 
+-- 1. Single-row funcions: Single row functions are such functions  which work on single row and return one output per row.
+-- String Functions, Number Functions, Time & Date Functions and Control-flow Functions
+-- 2. Multiple-row functions: Nultiple row functions are such functions which work on single or multiple rows and return one result for the complete set of rows.
 
+-- Practice queries using raw data  STRING FUNCTIONS
 
 -- substr(STRING,START,LENGTH(OPTIONAL)):
 select SUBSTR('KODNEST',4,2);
@@ -235,8 +239,10 @@ select coalesce('priya',40,60,70,null) as result; -- priya
 
 
 
-
-
-
-
+Notes Links:
+https://docs.google.com/document/u/0/d/1fB2kmn47A87gcaLv6FZedT3jFhbD9v6coCvz5hPaRm4/mobilebasic
+https://docs.google.com/document/u/0/d/1eRBDy9805KHiZZHYMZdO7PqUEqQIOS-ciRKulReuDQM/mobilebasic
+https://docs.google.com/document/u/0/d/18yUSqEVi2pS9vI6IwLlvpSTc3A3PdsLT7A0HJ_AUx7Q/mobilebasic
+https://docs.google.com/document/u/0/d/1OAeur2uNUr3wo8jbYSCbqm1pj6r2VmAUq2exICFRhFs/mobilebasic
+https://docs.google.com/document/u/0/d/1Uqn_JyEYwPxQsxp6F_ZkuKz_oXDmMFooZkFOHtgq-4M/mobilebasic
 
