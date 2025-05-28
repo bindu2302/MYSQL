@@ -83,3 +83,52 @@ select * from product;
 
 drop trigger DeleteProductQuantity;
 
+-- example 3
+
+select * from employee;
+alter table employee add salary decimal(10,2);
+UPDATE employee SET salary = 50000.00 WHERE emp_id = 1;
+UPDATE employee SET salary = 60000.00 WHERE emp_id = 2;
+UPDATE employee SET salary = 23000.00 WHERE emp_id = 3;
+UPDATE employee SET salary = 10000.00 WHERE emp_id = 4;
+UPDATE employee SET salary = 77000.00 WHERE emp_id = 5;
+
+
+CREATE TABLE audit_employee_salary (
+    emp_id INT,
+    emp_name VARCHAR(100),
+    old_salary DECIMAL(10,2),
+    new_salary DECIMAL(10,2),
+    change_date DATETIME
+);
+
+INSERT INTO audit_employee_salary (emp_id, emp_name, old_salary, new_salary, change_date)
+VALUES 
+(1, 'john', 40000.00, 50000.00, NOW()),
+(2, 'alice', 45000.00, 60000.00, NOW()),
+(3, 'robert', 20000.00, 23000.00, NOW()),
+(4, 'anitha', 8000.00, 10000.00, NOW()),
+(5, 'kevin', 70000.00, 77000.00, NOW());
+
+select * from audit_employee_salary;
+
+DELIMITER //
+CREATE TRIGGER after_salary_update
+AFTER UPDATE ON employee
+FOR EACH ROW
+BEGIN
+    IF OLD.salary != NEW.salary THEN
+        INSERT INTO audit_employee_salary (emp_id,emp_name, old_salary, new_salary, change_date)
+        VALUES (OLD.emp_id, OLD.salary, NEW.salary, NOW());
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+UPDATE employee SET salary = 90000.00 WHERE emp_id = 2;
+
+select * from audit_employee_salary;
+select * from employee;
+drop trigger after_salary_update;
+
