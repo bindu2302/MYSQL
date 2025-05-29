@@ -321,3 +321,7 @@ WHERE dept_id NOT IN (
 
 -- 📌 Explanation:
 -- The subquery returns all valid dept_ids. Any employee whose department doesn't exist in the departments table will be deleted.
+
+
+Notes:
+https://docs.google.com/document/d/1ZpHWU1d_8oM4LdK3fBLCFhHZ1VNUkfM4FFQbvn6NjRk/edit?tab=t.0
