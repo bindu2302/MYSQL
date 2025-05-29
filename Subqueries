@@ -56,3 +56,268 @@ INSERT INTO employees VALUES
 (9,'John',104,55000,'Bangalore','inactive');
 
 select * from employees;
+
+
+-- 🔶 Q1. Display the name and salary of those employees whose salary is greater than the average salary of all employees.
+
+SELECT name, salary
+
+FROM employees
+
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+
+-- Explanation:
+-- The subquery calculates the average salary of all employees. The main query then finds employees whose salary is greater than this average.
+
+
+-- 🔶 Q2. Show the name and salary of the employee(s) who earn the maximum salary among all employees.
+SELECT name, salary
+
+FROM employees
+
+WHERE salary = (SELECT MAX(salary) FROM employees);
+
+
+-- Explanation:
+-- We are comparing each employee's salary with the highest salary found using a scalar subquery.
+
+
+-- 🔶 Q3. Display the second highest salary from the employee table.
+SELECT DISTINCT salary
+
+FROM employees
+
+ORDER BY salary DESC
+
+LIMIT 1 OFFSET 1;
+
+
+-- Explanation:
+-- This query orders the distinct salaries in descending order and skips the first (highest) one to return the second highest.
+
+
+-- Table (or Multi-row) Subquery: Returns - Multiple rows
+-- 🔶 Q4. Show the names of employees who work in departments where the average salary is more than 60000.
+SELECT name, dept_id
+
+FROM employees
+
+WHERE dept_id IN (
+
+    SELECT dept_id
+
+    FROM employees
+
+    GROUP BY dept_id
+
+    HAVING AVG(salary) > 60000
+
+);
+
+
+-- Explanation:
+-- The subquery gets all departments with an average salary above 60000. The main query fetches employees from those departments.
+
+-- 🔶 Q5. List names,dept_id and locations of employees working in a location that has more than one department.
+
+SELECT name, dept_id,location
+
+FROM employees
+
+WHERE location IN (
+
+    SELECT location
+
+    FROM employees
+
+    GROUP BY location
+
+    HAVING COUNT(DISTINCT dept_id) > 1
+
+);
+
+
+-- Explanation:
+-- This identifies all locations with more than one department and shows employees from those locations.
+
+
+-- 🔶 Q6. Display the name and salary of employees whose salary is more than every employee working in department 103.
+SELECT name, salary
+
+FROM employees
+
+WHERE salary > ALL (
+
+    SELECT salary
+
+    FROM employees
+
+    WHERE dept_id = 103
+
+);
+
+
+-- Explanation:
+-- We fetch salaries from dept 103, and return only those employees whose salary is greater than all of those.
+
+
+-- 🔶 Q7. Find all departments that have at least one active employee.
+
+select distinct dept_id from employees where status = 'active';
+
+
+
+-- Using subquery in Select Statement: Correlated Subquery
+-- 🔶 Q8. For every employee, display their name, dept_id, and the total number of employees in their department.
+
+SELECT name, dept_id,
+
+    (SELECT COUNT(*)
+
+FROM employees e2 WHERE e2.dept_id = e1.dept_id) AS dept_employee_count
+
+FROM employees e1;
+
+
+-- Explanation:
+-- For each employee, we count how many people are in their department using a correlated subquery.
+
+
+-- 🔶 Q9. Display the name, dept_id, and salary of the employee(s) who earn the maximum salary in their respective department.
+SELECT name, dept_id, salary
+
+FROM employees e1
+
+WHERE (dept_id, salary) IN (
+
+    SELECT dept_id,MAX(salary)
+
+    FROM employees group by dept_id
+
+);
+
+
+-- Subqueries with Insert , Update and Delete:
+
+
+CREATE TABLE departments (
+
+    dept_id INT PRIMARY KEY,
+
+    dept_name VARCHAR(50)
+
+);
+
+
+CREATE TABLE employees (
+
+    emp_id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    dept_id INT,
+
+    salary INT
+
+);
+
+
+INSERT INTO departments VALUES
+
+(1, 'HR'),
+
+(2, 'Engineering'),
+
+(3, 'Sales');
+
+
+INSERT INTO employees VALUES
+
+(101, 'Alice', 1, 60000),
+
+(102, 'Bob', 2, 75000),
+
+(103, 'Charlie', 2, 72000),
+
+(104, 'David', 3, 50000),
+
+(105, 'Eve', 1, 58000);
+
+
+-- ✅ 1. INSERT using Subquery
+-- 🧩 Requirement: Insert into a new table all employees from the Engineering department.
+
+
+CREATE TABLE engineering_team (
+
+    emp_id INT,
+
+    name VARCHAR(50),
+
+    salary INT
+
+);
+
+
+INSERT INTO engineering_team (emp_id, name, salary)
+
+SELECT emp_id, name, salary
+
+FROM employees
+
+WHERE dept_id = (
+
+    SELECT dept_id
+
+    FROM departments
+
+    WHERE dept_name = 'Engineering'
+
+);
+
+
+-- 📌 Explanation:
+-- We used a subquery to find the department ID for "Engineering", and then inserted matching employees into engineering_team.
+
+
+-- ✅ 2. UPDATE using Subquery
+-- 🧩 Requirement: Increase salary by 10% for employees who belong to the department with the highest average salary.
+
+
+UPDATE employees
+
+SET salary = salary * 1.10
+
+WHERE dept_id = (
+
+    SELECT dept_id
+
+    FROM employees
+
+    GROUP BY dept_id
+
+    ORDER BY AVG(salary) DESC
+
+    LIMIT 1
+
+);
+
+
+-- 📌 Explanation:
+-- The subquery identifies the department with the highest average salary, and then the main query updates salaries of employees in that department.
+
+-- ✅ 3. DELETE using Subquery
+-- 🧩 Requirement: Delete employees who belong to departments that are not in the departments table (in case of mismatch or orphan records).
+
+
+DELETE FROM employees
+
+WHERE dept_id NOT IN (
+
+    SELECT dept_id FROM departments
+
+);
+
+-- 📌 Explanation:
+-- The subquery returns all valid dept_ids. Any employee whose department doesn't exist in the departments table will be deleted.
