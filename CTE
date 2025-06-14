@@ -70,4 +70,107 @@ You're nesting too many CTEs (can get confusing and slow).
 💡 Pro Tip
 You can replace a view with a CTE if it’s only used temporarily in a single query and doesn’t need to be stored.
 
+Examples:
+-- CTE
 
+create table company_employees (
+id int primary key,
+name varchar(50),
+department varchar(50),
+salary int,
+manager_id int,
+hire_date date);
+
+INSERT INTO company_employees (id, name, department, salary, manager_id, hire_date)
+VALUES 
+  (1, 'Alice', 'HR', 150000, 10, '2025-06-10'),
+  (2, 'Bob', 'Finance', 20000, 20, '2025-06-11'),
+  (3, 'Charlie', 'Development', 40000, 30, '2025-06-12'),
+  (4, 'David', 'Finance', 80000, 40, '2025-06-13'),
+  (5, 'Eve', 'QA', 100000, 50, '2025-06-14'),
+  (6, 'Frank', 'HR', 20000, 20, '2025-06-11'),
+  (7, 'Grace', 'QA', 50000, 30, '2025-06-12'),
+  (8, 'Hank', 'Finance', 60000, 20, '2025-06-13');
+
+select * from company_employees;
+
+
+
+-- CTE 1----
+WITH MAXSal as (
+	select department,max(salary) as max_sal 
+    from company_employees group by department),
+    
+TotalSal as (
+select department,sum(salary) as total_sal
+from company_employees group by department)
+
+select ce.id,ce.name,ts.total_sal,ms.max_sal
+from company_employees ce join TotalSal ts
+on ce.department = ts.department join
+MaxSal ms on ce.department = ms.department;
+
+-- CTE 2----
+
+WITH maxSal as(
+select department,max(salary)
+from company_employees
+group by department)
+
+select * from maxSal;
+
+-- CTE 3----
+
+WITH totalSal as(
+select department,sum(salary)
+from company_employees
+group by department)
+
+select * from totalSal;
+
+-- CTE 4 ----
+with employee_sal as (
+select name,salary from company_employees)
+select * from employee_sal;
+
+-- CTE 5 ---
+WITH avg_sal as (
+select department,avg(salary) from
+company_employees group by department)
+select * from avg_sal;
+
+-- CTE 6 ----
+With departSal as (
+select department,sum(salary) from company_employees
+group by department),
+
+EmployeeManagers as (
+select ce.id as employee_id,ce.name as employee_name,
+coalesce(m.name,'None') as manager_name
+from company_employees ce left join
+company_employees m on ce.manager_id = m.id),
+
+maxSal as (
+select department,max(salary) from company_employees
+group by department)
+
+select me.id,me.name,me.manager_name,ds.total_sal,
+dms.max_sal from EmployeeManagers em join departSal ds on
+em.department = ds.department join maxsal dms on
+me.department = dms.department order by me.department,em.employee_id;
+
+
+-- CTE 7 ---
+with depSal as (
+select d.department_name as name,sum(e.salary) as total_sal
+from departments1 d join employees1 e on
+d.department_id = e.department_id
+group by d.department_name)
+
+select * from depSal
+order by
+case
+when department_name = 'HR' then 1
+when department_name = 'Engineering' then 2
+when department_name = 'Sales' then 3
+end;
