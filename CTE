@@ -1,1 +1,73 @@
+What is CTE (Common Table Expression)?
+-----------------------------------------
+A CTE (Common Table Expression) is a temporary result set that you can reference within a SELECT, INSERT, UPDATE, or DELETE statement.
+It improves query readability and reusability, especially for recursive and complex queries.
+
+📍 When to Use CTE in MySQL?
+✅ Use CTE when:
+--------------------------------
+You have complex queries with multiple joins.
+You need to write recursive queries.
+You want to clean up long subqueries.
+You want to debug sections of your query easily.
+
+🧾 Syntax of CTE:
+------------------------------------
+WITH cte_name (column1, column2, ...) AS (
+    SELECT query
+)
+-- Use the CTE in a main query
+SELECT * FROM cte_name;
+
+
+You can also define multiple CTEs:
+---------------------------
+WITH cte1 AS (
+    SELECT ...
+), 
+cte2 AS (
+    SELECT ...
+)
+SELECT ...
+FROM cte1
+JOIN cte2 ON ...;
+
+🎯 Use Cases / Why We Use CTE
+----------------------------------------
+✅ Improve Readability of complex queries.
+🔄 Recursive Queries (e.g., hierarchical/parent-child data).
+🔁 Reuse logic within the same query.
+📄 Avoid subqueries and repeated code.
+📚 Data transformation for reporting or analytics.
+
+✅ Advantages (Pros) of CTEs:
+---------------------------------
+| Feature              | Benefit                                  |
+| -------------------- | ---------------------------------------- |
+| 👍 Readability       | Easier to understand large queries       |
+| 🔄 Reusability       | Reuse result sets without subqueries     |
+| 🔁 Recursive Queries | Ideal for parent-child (tree) structures |
+| 🧹 Cleaner Queries   | Reduces clutter in `SELECT` and `JOIN`s  |
+| 🧪 Debug-friendly    | Easy to test CTE blocks separately       |
+
+❌ Disadvantages (Cons) of CTEs:
+---------------------------------------------
+| Limitation          | Impact                                          |
+| ------------------- | ----------------------------------------------- |
+| 🔂 Temporary        | Can't persist like tables or views              |
+| ⚠️ Performance      | Sometimes slower than subqueries or temp tables |
+| 💾 Memory Usage     | Large CTEs use RAM; bad for big datasets        |
+| 🔄 Recursive Limits | Default recursion limit (e.g., 1000 rows)       |
+
+
+🚫 When Not to Use CTE
+❌ Avoid CTE if:
+-----------------------------
+You're using MySQL version below 8.0 (CTEs are not supported).
+You're dealing with very large datasets (performance issues).
+You're nesting too many CTEs (can get confusing and slow).
+
+💡 Pro Tip
+You can replace a view with a CTE if it’s only used temporarily in a single query and doesn’t need to be stored.
+
 
